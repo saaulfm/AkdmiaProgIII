@@ -47,7 +47,7 @@ public class VentanaBarcelona extends JFrame {
 		lblHora = new JLabel();
 		lblHora.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 20));
 		
-        lblImagen = new JLabel(new ImageIcon("src/img/lamine.JPG"));
+        lblImagen = new JLabel(new ImageIcon("img/lamine.JPG"));
 		
 		lblMensaje = new JLabel("Visca el Barça !!!");
 		lblMensaje.setFont(new Font(Font.DIALOG, Font.BOLD, 26));
@@ -150,7 +150,7 @@ public class VentanaBarcelona extends JFrame {
 		
 		// Añadir listeners a los componentes	
 		btnMensaje.addActionListener((e)->{
-			System.out.println("Has clickado sobre el botón Mensaje");
+			System.out.println("Para bien o para mal, Lamine Yamal");
 		});
 		
 		// Última secuencia
