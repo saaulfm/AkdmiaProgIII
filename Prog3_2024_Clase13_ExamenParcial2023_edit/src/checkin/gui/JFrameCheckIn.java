@@ -1,17 +1,24 @@
 package checkin.gui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
 import java.util.Arrays;
 import java.util.Vector;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.WindowConstants;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 
 import checkin.domain.Aircraft;
+import checkin.domain.Seat;
+import checkin.domain.Seat.SeatClass;
 
 public class JFrameCheckIn extends JFrame {
 
@@ -89,5 +96,46 @@ public class JFrameCheckIn extends JFrame {
 		//- La columna 4ª, que representa el pasillo, debe aparecer vacía con el 
 		//  color de fondo por defecto de la tabla.
 		//- La altura por defecto de todas las filas de la tabla debe ser 32 píxeles.
+		
+		this.seatsTable.getTableHeader().setDefaultRenderer((table,value,isSelected,hasFocus,row,column) -> {
+			JLabel l = new JLabel();
+			l.setOpaque(true);
+			l.setHorizontalAlignment(JLabel.CENTER);
+			if(column == 0 || column == 4) {
+				l.setBackground(table.getBackground());
+			} else {
+				l.setBackground(new Color(237, 237, 237));
+				ImageIcon im = new ImageIcon("resources/images/" + value.toString()+".png");
+				l.setIcon(im);
+			}
+			return l;
+		});
+		
+		this.seatsTable.setDefaultRenderer(Object.class, (table,value,isSelected,hasFocus,row,column) -> {
+			JLabel l = new JLabel();
+			l.setOpaque(true);
+			l.setHorizontalAlignment(JLabel.CENTER);
+			if(column == 0 || column == 4) {
+				l.setBackground(table.getBackground());
+				l.setText(value.toString());
+			} else {
+				Seat s = (Seat) value;
+				if(s.getSeatClass().equals(SeatClass.FIRST_CLASS)) {
+					l.setBackground(new Color(245, 247, 220));
+				} else if(s.getSeatClass().equals(SeatClass.EMERGENCY )) {
+					l.setBackground(new Color(252, 191, 183));
+				}
+				
+				if(s.isOccupied()) {
+					ImageIcon im = new ImageIcon("resources/images/Occupied.png");
+					l.setIcon(im);
+				} else {
+					ImageIcon im = new ImageIcon("resources/images/Available.png");
+					l.setIcon(im);
+				}
+			}
+			return l;
+		});
+		this.seatsTable.setRowHeight(32);
 	}
 }
