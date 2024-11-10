@@ -3,6 +3,8 @@ package checkin.gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.Arrays;
 import java.util.Vector;
 
@@ -41,6 +43,25 @@ public class JFrameCheckIn extends JFrame {
 		//buscar y confirmar asientos (será suficiente con llamar al constructor 
 		//de esta ventana de diálogo. El cuadro de diálogo tiene toda la funcionalidad
 		//implementada y hace uso de los métodos de la clase SeatAllocator.
+		
+		KeyListener myKeyListener = new KeyListener() {
+			@Override
+			public void keyTyped(KeyEvent e) { }
+
+			@Override
+			public void keyReleased(KeyEvent e) {}
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_C && e.isControlDown()) {
+					System.out.println("Has pulsado CTRL+C");
+				} else if (e.getKeyCode() == KeyEvent.VK_X && e.isControlDown()) {
+					System.out.println("Has pulsado CTRL+X");
+				}
+			}
+		};
+
+		this.seatsTable.addKeyListener(myKeyListener);
 		
 		this.setTitle("'" + aircraft.getName() + "' check-in window");		
 		this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
